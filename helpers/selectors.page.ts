@@ -13,3 +13,17 @@ export const iPickleCerritosButton = "//button[contains(text(),'iPickle Cerritos
 export const bookNow = "//span[contains(text(),'Book Now')]"
 
 export const pickleballButton = "//button[text()='Pickleball']"
+
+export const courtSelection = "(//h2[text()='Select Detail']/..//button[contains(text(),'Pickleball')])[1]"
+
+export const nextButton = "//span[contains(text(),'Next')]/ancestor::button[not(contains(@class,'disabled'))]"
+
+export const twoPlayers = "//button[text()='2']"
+
+export const addUsers = "//button[text()='Add Users']"
+
+export const playerSearchField = "//div[contains(@class,'PlayerSearchListModal transition visible active')]//input[@placeholder='Search for Users']"
+
+export const userSelectionNext = "//table[contains(@class,'visible')]//span[contains(text(),'Next')]/ancestor::button[not(contains(@class,'disabled'))]"
+
+export const bookButton = "//button[text()='Book']"

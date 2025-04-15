@@ -10,3 +10,7 @@ export function getXPath() : string {
 export function desiredTimePath(time: string) : string {
     return `//button[text()='${time}' and not(contains(@class,'basic red'))]`
 }
+
+export function playerPath(player : string) : string {
+    return `//span[text()='${player}']/ancestor::div[@class='PlayerList']//button[text()='Add']`
+}

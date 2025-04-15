@@ -9,6 +9,15 @@ dotenv.config();  //only needed for local dev
 const today = new Date();
 const shortDay = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(today);
 
+//get player combo
+const playerCombo  = {
+  "Mon": "Khoi Do",
+  "Tue": "Chanel Jung",
+  "Wed": "Tiffany La",
+  "Thu": "Charlee Liu",
+  "Fri": "Patrick Jung"
+}
+
 let username : string;
 let password : string;
 //set creds depending on day
@@ -20,7 +29,9 @@ if (shortDay == "Tue") {
 
 test('bot', async ({ page }) => {
   //initiate array of desired times
-  const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
+  const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm']
+
+  // const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
@@ -55,7 +66,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.pickleballButton).click()
 
   //select times
-  let previousSelected : boolean = false
   for (const time of desiredTimes) {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
@@ -67,9 +77,25 @@ test('bot', async ({ page }) => {
 
     } catch {
       console.log(`${time} does not exist`);
+      break;
     }
   }
 
+  //select earliest court
+  await page.locator(selectors.courtSelection).click()
+  await page.locator(selectors.nextButton).click()
+
+  //select number of users
+  await page.locator(selectors.twoPlayers).click()
+  await page.locator(selectors.addUsers).click()
+
+  //search users
+  await page.locator(selectors.playerSearchField).fill(playerCombo[shortDay])
+  await page.locator(functions.playerPath(playerCombo[shortDay])).click()
+  await page.locator(selectors.userSelectionNext).click()
+
+  //BOOK
+  //await page.locator(selectors.userSelectionNext).click()
 
   await page.pause();
 });

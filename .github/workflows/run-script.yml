@@ -1,12 +1,12 @@
-name: Run Playwright Script Daily
+name: Run Playwright Tests Daily
 
 on:
   schedule:
     - cron: '0 9 * * *'  # Every day at 9:00 AM UTC
-  workflow_dispatch:     # Optional: lets you trigger manually from GitHub
+  workflow_dispatch:     # Optional: lets you run it manually too
 
 jobs:
-  run-script:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright
+      - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run the script
-        run: node script.js
+      - name: Run Playwright tests
+        run: npx playwright test

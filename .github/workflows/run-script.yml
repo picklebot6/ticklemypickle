@@ -25,6 +25,9 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          MY_USERNAME: ${{ secrets.MY_USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: Upload videos
         if: always()

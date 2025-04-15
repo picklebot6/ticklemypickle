@@ -25,3 +25,10 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-videos
+          path: test-results/**/video/*.webm

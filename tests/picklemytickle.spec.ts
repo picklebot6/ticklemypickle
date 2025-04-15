@@ -61,7 +61,10 @@ test('bot', async ({ page }) => {
     try {
       await locator.waitFor({ timeout: 1000 });
       console.log(`${time} exists`);
+      
       //select time
+      await page.locator(functions.desiredTimePath(time)).click()
+
     } catch {
       console.log(`${time} does not exist`);
     }

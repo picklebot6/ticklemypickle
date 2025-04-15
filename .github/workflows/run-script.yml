@@ -1,5 +1,4 @@
-name: Run Playwright Tests Daily
-
+name: Automatic Reservations on PlayByPoint
 on:
   schedule:
     - cron: '0 9 * * *'  # Every day at 9:00 AM UTC

@@ -105,7 +105,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.userSelectionNext).click()
 
   //BOOK
-  //await page.locator(selectors.userSelectionNext).click()
+  await page.locator(selectors.userSelectionNext).click()
 
   await page.pause();
 });

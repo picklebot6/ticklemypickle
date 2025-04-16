@@ -39,9 +39,9 @@ if (shortDay == "Tue") {
 
 test('bot', async ({ page }) => {
   //initiate array of desired times
-  const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm']
+  //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm']
 
-  //const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
+  const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');

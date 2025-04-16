@@ -19,8 +19,8 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 //get player combo
 const playerCombo  = {
   "Mon": "Khoi Do",
-  "Tue": "Chanel Jung",
-  "Wed": "Tiffany La",
+  "Tue": "Khoi Do",
+  "Wed": "Khoi Do",
   "Thu": "Charlee Liu",
   "Fri": "Patrick Jung"
 }
@@ -41,7 +41,7 @@ test('bot', async ({ page }) => {
   //initiate array of desired times
   const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm']
 
-  // const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
+  //const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
@@ -55,7 +55,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
 
-  // await page.pause();
+  //await page.pause();
 
   //check for popup
   try {
@@ -74,6 +74,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.pickleballButton).click()
 
   //select times
+  let selected : boolean = false
   for (const time of desiredTimes) {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
@@ -82,10 +83,13 @@ test('bot', async ({ page }) => {
       
       //select time
       await page.locator(functions.desiredTimePath(time)).click()
+      selected = true;
 
     } catch {
       console.log(`${time} not available`);
-      break;
+      if (selected) {
+        break;
+      }
     }
   }
 

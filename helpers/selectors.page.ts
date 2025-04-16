@@ -35,3 +35,5 @@ export const hr = "(//div[contains(@class,'Countdown')]//td)[1]"
 export const min = "(//div[contains(@class,'Countdown')]//td)[3]"
 
 export const sec = "(//div[contains(@class,'Countdown')]//td)[5]"
+
+export const confirmationNumber = "//div[text()='Confirmation Number']/following-sibling::div"

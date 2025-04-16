@@ -56,6 +56,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
+  //await page.pause();
 
   //check for popup
   try {
@@ -125,6 +126,9 @@ test('bot', async ({ page }) => {
 
   //BOOK
   await page.locator(selectors.bookButton).click()
+  await page.waitForTimeout(5000)
 
-  //await page.pause();
+  let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
+  console.log(confirmationNumber?.trim())
+  await page.pause();
 });

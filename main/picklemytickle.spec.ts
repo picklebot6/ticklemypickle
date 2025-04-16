@@ -55,8 +55,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
 
-  //await page.pause();
-
   //check for popup
   try {
     await page.locator(selectors.popup).click({timeout: 2500})
@@ -109,5 +107,5 @@ test('bot', async ({ page }) => {
   //BOOK
   await page.locator(selectors.bookButton).click()
 
-  await page.pause();
+  //await page.pause();
 });

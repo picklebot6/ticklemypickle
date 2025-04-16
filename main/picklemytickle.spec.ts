@@ -41,9 +41,9 @@ test('bot', async ({ page }) => {
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
   //initiate array of desired times
-  //const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
 
-  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');

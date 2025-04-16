@@ -41,10 +41,13 @@ test('bot', async ({ page }) => {
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
   //initiate array of desired times
-  const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  // const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
 
   //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
+  //intiate array of best court
+  const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
 
@@ -56,6 +59,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
+
 
   //check for popup
   try {
@@ -72,12 +76,12 @@ test('bot', async ({ page }) => {
   await page.locator(functions.getXPath()).click()
   //select pickleball
   await page.locator(selectors.pickleballButton).click()
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(3000)
 
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();
   while (count > 0) {
-    await page.waitForTimeout(5000)
+    await page.waitForTimeout(3000)
     //check again
     count = await page.locator(selectors.messageUntilOpen).count();
     if (count < 1) {
@@ -109,15 +113,24 @@ test('bot', async ({ page }) => {
       }
     }
   }
+  await page.waitForTimeout(1000);
 
   //select earliest court
+  for (const court of courtHierarchy) {
+    try {
+      await page.locator(functions.courtPath(court)).click({timeout: 1000})
+      console.log(`Court ${court} selected`)
+      break;
+    } catch {
+      console.log(`Court ${court} not available`)
+    }
+  }
+
   try {
-    await page.locator(selectors.courtSelection).click({timeout: 5000})
+    await page.locator(selectors.nextButton).click({timeout: 3000})
   } catch {
-    console.log("no available times")
     process.exit(0)
   }
-  await page.locator(selectors.nextButton).click()
 
   //select number of users
   await page.locator(selectors.twoPlayers).click()

@@ -20,3 +20,7 @@ export function desiredTimePath(time: string) : string {
 export function playerPath(player : string) : string {
     return `//span[text()='${player}']/ancestor::div[@class='PlayerList']//button[text()='Add']`
 }
+
+export function courtPath(court : string) : string {
+    return `//h2[text()='Select Detail']/..//button[contains(text(),'Pickleball ${court}')]`
+}

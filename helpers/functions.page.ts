@@ -1,9 +1,15 @@
 export function getXPath() : string {
-    const today = new Date();
-    const sevenDaysLater = new Date(today);
-    sevenDaysLater.setDate(today.getDate() + 7);
-    const day = sevenDaysLater.getDate();
-    const xPath = `//div[@class='day_number' and text()='${day.toString()}']`
+    const now = new Date();
+    const pstNow = new Date(
+    now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+    );
+
+    // Add 7 days
+    const pst7DaysLater = new Date(pstNow.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    // Get just the day (1–31)
+    const dayOfMonth = pst7DaysLater.getDate();
+    const xPath = `//div[@class='day_number' and text()='${dayOfMonth.toString()}']`
     return xPath
 }
 

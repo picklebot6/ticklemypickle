@@ -6,8 +6,15 @@ import { secureHeapUsed } from 'crypto';
 dotenv.config();  //only needed for local dev
 
 //get current date
-const today = new Date();
-const shortDay = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(today);
+const todayPST = new Date().toLocaleString('en-US', {
+  timeZone: 'America/Los_Angeles',
+});
+
+const pstDate = new Date(todayPST);
+const shortDay = new Intl.DateTimeFormat('en-US', {
+  weekday: 'short',
+  timeZone: 'America/Los_Angeles',
+}).format(pstDate);
 
 //get player combo
 const playerCombo  = {

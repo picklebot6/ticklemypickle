@@ -17,13 +17,14 @@ const playerCombo  = {
   "Thu": "Charlee Liu",
   "Fri": "Patrick Jung"
 }
-console.log("USERNAME:", typeof process.env.MY_USERNAME, process.env.MY_USERNAME?.length);
-console.log("PASSWORD:", typeof process.env.PASSWORD, process.env.PASSWORD?.length);
 
 let username : string;
 let password : string;
 //set creds depending on day
 if (shortDay == "Tue") {
+  username = process.env.MY_USERNAME as string;
+  password = process.env.PASSWORD as string;
+} else {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
 }

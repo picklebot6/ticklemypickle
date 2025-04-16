@@ -1,7 +1,7 @@
 name: Automatic Reservations on PlayByPoint
 on:
   schedule:
-    - cron: '10 1 * * *'  # Every day at 7am PST
+    - cron: '*/5 * * * *'  # Every day at 7am PST
   workflow_dispatch:     # Optional: lets you run it manually too
 
 jobs:

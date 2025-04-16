@@ -1,7 +1,7 @@
 name: Automatic Reservations on PlayByPoint
 on:
   schedule:
-    - cron: '0 14 * * *'  # Every day at 7am PST
+    - cron: '10 1 * * *'  # Every day at 7am PST
   workflow_dispatch:     # Optional: lets you run it manually too
 
 jobs:
@@ -42,20 +42,3 @@ jobs:
         with:
           name: playwright-html-report
           path: playwright-report/
-
-      - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
-      - name: Convert .webm videos to .mp4
-        run: |
-          mkdir -p converted-videos
-          find playwright-report/data -name '*.webm' | while read f; do
-            base=$(basename "$f" .webm)
-            ffmpeg -i "$f" -c:v libx264 "converted-videos/$base.mp4"
-          done
-
-      - name: Upload converted .mp4 videos
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-videos-mp4
-          path: converted-videos/*.mp4

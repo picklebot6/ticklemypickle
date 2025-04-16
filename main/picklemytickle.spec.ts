@@ -38,10 +38,12 @@ if (shortDay == "Tue") {
 
 
 test('bot', async ({ page }) => {
-  //initiate array of desired times
-  //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm']
+  test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
-  const desiredTimes : string[] = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
+  //initiate array of desired times
+  //const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+
+  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
@@ -70,6 +72,23 @@ test('bot', async ({ page }) => {
   await page.locator(functions.getXPath()).click()
   //select pickleball
   await page.locator(selectors.pickleballButton).click()
+  await page.waitForTimeout(5000)
+
+  //wait for countdown
+  let count = await page.locator(selectors.messageUntilOpen).count();
+  while (count > 0) {
+    await page.waitForTimeout(5000)
+    //check again
+    count = await page.locator(selectors.messageUntilOpen).count();
+    if (count < 1) {
+      break;
+    }
+    //get amount of time remaining
+    const hr = await page.$eval(selectors.hr, el => el.textContent)
+    const min = await page.$eval(selectors.min, el => el.textContent)
+    const sec = await page.$eval(selectors.sec, el => el.textContent)
+    console.log(`time left remaining: ${hr}:${min}:${sec}`)
+  }
 
   //select times
   let selected : boolean = false

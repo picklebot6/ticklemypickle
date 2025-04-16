@@ -27,3 +27,11 @@ export const playerSearchField = "//div[contains(@class,'PlayerSearchListModal t
 export const userSelectionNext = "//table[contains(@class,'visible')]//span[contains(text(),'Next')]/ancestor::button[not(contains(@class,'disabled'))]"
 
 export const bookButton = "//button[text()='Book']"
+
+export const messageUntilOpen = "//div[contains(text(),'Booking for this day will open in')]"
+
+export const hr = "(//div[contains(@class,'Countdown')]//td)[1]"
+
+export const min = "(//div[contains(@class,'Countdown')]//td)[3]"
+
+export const sec = "(//div[contains(@class,'Countdown')]//td)[5]"

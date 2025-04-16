@@ -55,16 +55,14 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
 
+  // await page.pause();
 
   //check for popup
-  let isVisible = false;
   try {
     await page.locator(selectors.popup).click({timeout: 2500})
+    console.log('popup existed and closed');
 
-  } catch (e) {
-    console.log('popup did not exist');
-  }
-  const verify = await page.$eval(selectors.bookings, el => el.textContent)
+  } catch (e) {}
 
   //select facility (cerritos)
   await page.locator(selectors.iPickleCerritosButton).click()
@@ -80,13 +78,13 @@ test('bot', async ({ page }) => {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
       await locator.waitFor({ timeout: 1000 });
-      console.log(`${time} exists`);
+      console.log(`${time} booked`);
       
       //select time
       await page.locator(functions.desiredTimePath(time)).click()
 
     } catch {
-      console.log(`${time} does not exist`);
+      console.log(`${time} not available`);
       break;
     }
   }
@@ -105,7 +103,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.userSelectionNext).click()
 
   //BOOK
-  await page.locator(selectors.userSelectionNext).click()
+  await page.locator(selectors.bookButton).click()
 
   await page.pause();
 });

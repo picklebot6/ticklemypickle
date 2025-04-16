@@ -21,7 +21,7 @@ const playerCombo  = {
   "Mon": "Khoi Do",
   "Tue": "Khoi Do",
   "Wed": "Khoi Do",
-  "Thu": "Charlee Liu",
+  "Thu": "Khoi Do",
   "Fri": "Patrick Jung"
 }
 
@@ -56,7 +56,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-  //await page.pause();
 
   //check for popup
   try {
@@ -112,7 +111,12 @@ test('bot', async ({ page }) => {
   }
 
   //select earliest court
-  await page.locator(selectors.courtSelection).click()
+  try {
+    await page.locator(selectors.courtSelection).click({timeout: 5000})
+  } catch {
+    console.log("no available times")
+    process.exit(0)
+  }
   await page.locator(selectors.nextButton).click()
 
   //select number of users
@@ -129,6 +133,6 @@ test('bot', async ({ page }) => {
   await page.waitForTimeout(5000)
 
   let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
-  console.log(confirmationNumber?.trim())
+  console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
   await page.pause();
 });

@@ -17,8 +17,9 @@ const playerCombo  = {
   "Thu": "Charlee Liu",
   "Fri": "Patrick Jung"
 }
-console.log('Username:', process.env.MY_USERNAME);
-console.log('Password exists:', Boolean(process.env.PASSWORD));
+console.log("USERNAME:", typeof process.env.MY_USERNAME, process.env.MY_USERNAME?.length);
+console.log("PASSWORD:", typeof process.env.PASSWORD, process.env.PASSWORD?.length);
+
 let username : string;
 let password : string;
 //set creds depending on day

@@ -145,9 +145,20 @@ test('bot', async ({ page }) => {
   await page.locator(functions.playerPath(playerCombo[shortDay])).click()
   await page.locator(selectors.userSelectionNext).click()
 
+  //listen for alert
+  let alertAppeared = false;
+
+  page.once('dialog', async dialog => {
+    alertAppeared = true;
+    console.log('Alert:', dialog.message());
+    await dialog.accept();
+  });
+
   //BOOK
   await page.locator(selectors.bookButton).click()
   await page.waitForTimeout(3000)
+
+  console.log(alertAppeared ? '✅ Alert appeared' : '❌ No alert appeared');
 
   //check if booking worked
   let confirmationCount = await page.locator(selectors.confirmationNumber).count()

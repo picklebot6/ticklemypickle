@@ -37,3 +37,7 @@ export const min = "(//div[contains(@class,'Countdown')]//td)[3]"
 export const sec = "(//div[contains(@class,'Countdown')]//td)[5]"
 
 export const confirmationNumber = "//div[text()='Confirmation Number']/following-sibling::div"
+
+export const selectDateTime = "//h2[text()='Select date and time']"
+
+export const checkout = "//h2[text()='Checkout']"

@@ -40,9 +40,9 @@ test('bot', async ({ page }) => {
 
   //initiate array of desired times
   //const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
-  //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
+  const desiredTimes : string[] = ['5-5:30pm']
 
-  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //intiate array of best court
   const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']
@@ -115,8 +115,11 @@ test('bot', async ({ page }) => {
   }
   await page.waitForTimeout(1000);
 
+  let selectedCourts : string[] = []
   //select earliest court
   for (const court of courtHierarchy) {
+      //add selected court to other array
+      selectedCourts.push(court)
     try {
       await page.locator(functions.courtPath(court)).click({timeout: 500})
       console.log(`Court ${court} selected`)
@@ -142,10 +145,38 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.userSelectionNext).click()
 
   //BOOK
-  await page.locator(selectors.bookButton).click()
-  await page.waitForTimeout(5000)
+  //await page.locator(selectors.bookButton).click()
+  await page.waitForTimeout(3000)
 
+  //check if booking worked
+  let confirmationCount = await page.locator(selectors.confirmationNumber).count()
+  while (confirmationCount < 1 && selectedCourts.length < courtHierarchy.length) { //if booking confirmation is not found
+    //go back to court selection
+    await page.locator(selectors.selectDateTime).click()
+    //select a different court
+    for (const court of courtHierarchy) {
+      if (selectedCourts.includes(court)) {
+        continue
+      }
+      //add selected court to other array
+      selectedCourts.push(court)
+      try {
+        await page.locator(functions.courtPath(court)).click({timeout: 500})
+        console.log(`Court ${court} selected`)
+        break;
+      } catch {
+        console.log(`Court ${court} not available`)
+      }
+    }
+    //go back to book
+    await page.locator(selectors.checkout).click()
+    //BOOK
+    //await page.locator(selectors.bookButton).click()
+    await page.waitForTimeout(3000)
+    confirmationCount = await page.locator(selectors.confirmationNumber).count()
+  }
+  //extract confirmation number
   let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
   console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
-  //await page.pause();
+  
 });

@@ -20,9 +20,6 @@ const playerCombo = {
   Fri: 'Patrick Jung',
 };
 
-// Debug logs
-console.log("shortDay (PST):", shortDay);
-console.log("Selected player:", playerCombo[shortDay]);
 
 let username : string;
 let password : string;
@@ -36,6 +33,10 @@ if (shortDay == "Tue") {
 }
 
 test('bot', async ({ page }) => {
+  // Debug logs
+  console.log("shortDay (PST):", shortDay);
+  console.log("Selected player:", playerCombo[shortDay]);
+  
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
   //initiate array of desired times

@@ -17,9 +17,10 @@ const playerCombo = {
   Tue: 'Khoi Do',
   Wed: 'Khoi Do',
   Thu: 'Chanel Jung',
-  Fri: 'Patrick Jung',
+  Fri: 'Chanel Jung',
+  Sat: 'Chanel Jung',
+  Sun: 'Chanel Jung'
 };
-
 
 let username : string;
 let password : string;
@@ -41,9 +42,9 @@ test('bot', async ({ page }) => {
 
   //initiate array of desired times
   //const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
-  const desiredTimes : string[] = ['5-5:30pm']
+  //const desiredTimes : string[] = ['5-5:30pm']
 
-  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //intiate array of best court
   const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']
@@ -58,7 +59,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-
 
   //check for popup
   try {
@@ -129,12 +129,9 @@ test('bot', async ({ page }) => {
       console.log(`Court ${court} not available`)
     }
   }
-
-  try {
-    await page.locator(selectors.nextButton).click({timeout: 3000})
-  } catch {
-    process.exit(0)
-  }
+  
+  //Next
+  await page.locator(selectors.nextButton).click({timeout: 3000})
 
   //select number of users
   await page.locator(selectors.twoPlayers).click()

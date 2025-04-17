@@ -36,7 +36,7 @@ test('bot', async ({ page }) => {
   // Debug logs
   console.log("shortDay (PST):", shortDay);
   console.log("Selected player:", playerCombo[shortDay]);
-  
+
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
   //initiate array of desired times
@@ -176,11 +176,9 @@ test('bot', async ({ page }) => {
     await page.waitForTimeout(3000)
     confirmationCount = await page.locator(selectors.confirmationNumber).count()
   }
-  try {
-    //extract confirmation number
-    let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
-    console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
-  } catch {
-    process.exit(0)
-  }
+
+  //extract confirmation number
+  let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
+  console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
+  await page.waitForTimeout(5000)
 });

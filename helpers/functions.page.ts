@@ -5,7 +5,7 @@ export function getXPath() : string {
     );
 
     // Add 7 days
-    const pst7DaysLater = new Date(pstNow.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const pst7DaysLater = new Date(pstNow.getTime() + 6 * 24 * 60 * 60 * 1000);
 
     // Get just the day (1–31)
     const dayOfMonth = pst7DaysLater.getDate();

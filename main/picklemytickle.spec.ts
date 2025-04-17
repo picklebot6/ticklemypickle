@@ -42,9 +42,9 @@ test('bot', async ({ page }) => {
 
   //initiate array of desired times
   // const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
-  const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
+  //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
 
-  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //intiate array of best court
   const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']

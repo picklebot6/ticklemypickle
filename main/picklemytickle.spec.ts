@@ -42,9 +42,9 @@ test('bot', async ({ page }) => {
 
   //initiate array of desired times
   // const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
-  //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
+  const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
 
-  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //intiate array of best court
   const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']
@@ -81,17 +81,19 @@ test('bot', async ({ page }) => {
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();
   while (count > 0) {
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(1000)
     //check again
     count = await page.locator(selectors.messageUntilOpen).count();
     if (count < 1) {
       break;
     }
     //get amount of time remaining
-    const hr = await page.$eval(selectors.hr, el => el.textContent)
-    const min = await page.$eval(selectors.min, el => el.textContent)
-    const sec = await page.$eval(selectors.sec, el => el.textContent)
-    console.log(`time left remaining: ${hr}:${min}:${sec}`)
+    try {
+      const hr = await page.$eval(selectors.hr, el => el.textContent)
+      const min = await page.$eval(selectors.min, el => el.textContent)
+      const sec = await page.$eval(selectors.sec, el => el.textContent)
+      console.log(`time left remaining: ${hr}:${min}:${sec}`)
+    } catch {}
   }
 
   //select times
@@ -99,7 +101,7 @@ test('bot', async ({ page }) => {
   for (const time of desiredTimes) {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
-      await locator.waitFor({ timeout: 1000 });
+      await locator.waitFor({ timeout: 500 });
       console.log(`${time} booked`);
       
       //select time
@@ -118,7 +120,7 @@ test('bot', async ({ page }) => {
   //select earliest court
   for (const court of courtHierarchy) {
     try {
-      await page.locator(functions.courtPath(court)).click({timeout: 1000})
+      await page.locator(functions.courtPath(court)).click({timeout: 500})
       console.log(`Court ${court} selected`)
       break;
     } catch {

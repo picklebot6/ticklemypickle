@@ -146,7 +146,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.userSelectionNext).click()
 
   //BOOK
-  //await page.locator(selectors.bookButton).click()
+  await page.locator(selectors.bookButton).click()
   await page.waitForTimeout(3000)
 
   //check if booking worked
@@ -172,7 +172,7 @@ test('bot', async ({ page }) => {
     //go back to book
     await page.locator(selectors.checkout).click()
     //BOOK
-    //await page.locator(selectors.bookButton).click()
+    await page.locator(selectors.bookButton).click()
     await page.waitForTimeout(3000)
     confirmationCount = await page.locator(selectors.confirmationNumber).count()
   }
@@ -181,4 +181,5 @@ test('bot', async ({ page }) => {
   let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
   console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
   await page.waitForTimeout(5000)
+  // await page.pause()
 });

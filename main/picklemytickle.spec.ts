@@ -5,27 +5,25 @@ import * as functions from "../helpers/functions.page"
 import { secureHeapUsed } from 'crypto';
 dotenv.config();  //only needed for local dev
 
-//get current date
-const todayPST = new Date().toLocaleString('en-US', {
-  timeZone: 'America/Los_Angeles',
-});
-
-const pstDate = new Date(todayPST);
+// Get current day in PST (short format like "Mon", "Tue", etc.)
 const shortDay = new Intl.DateTimeFormat('en-US', {
   weekday: 'short',
   timeZone: 'America/Los_Angeles',
-}).format(pstDate);
+}).format(new Date());
 
-//get player combo
-const playerCombo  = {
-  "Mon": "Khoi Do",
-  "Tue": "Khoi Do",
-  "Wed": "Khoi Do",
-  "Thu": "Chanel Jung",
-  "Fri": "Patrick Jung"
-}
+// Player schedule
+const playerCombo = {
+  Mon: 'Khoi Do',
+  Tue: 'Khoi Do',
+  Wed: 'Khoi Do',
+  Thu: 'Chanel Jung',
+  Fri: 'Patrick Jung',
+};
+
+// Debug logs
 console.log("shortDay (PST):", shortDay);
 console.log("Selected player:", playerCombo[shortDay]);
+
 let username : string;
 let password : string;
 //set creds depending on day
@@ -37,15 +35,14 @@ if (shortDay == "Tue") {
   password = process.env.PASSWORD as string;
 }
 
-process.exit(0)
 test('bot', async ({ page }) => {
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 
   //initiate array of desired times
-  // const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
   //const desiredTimes : string[] = ['5-5:30pm','5:30-6pm','6-6:30pm','6:30-7pm']
 
-  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  //const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
 
   //intiate array of best court
   const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']

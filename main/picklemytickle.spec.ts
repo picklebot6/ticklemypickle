@@ -21,7 +21,7 @@ const playerCombo  = {
   "Mon": "Khoi Do",
   "Tue": "Khoi Do",
   "Wed": "Khoi Do",
-  "Thu": "Khoi Do",
+  "Thu": "Chanel Jung",
   "Fri": "Patrick Jung"
 }
 

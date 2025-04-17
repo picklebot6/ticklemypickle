@@ -24,7 +24,8 @@ const playerCombo  = {
   "Thu": "Chanel Jung",
   "Fri": "Patrick Jung"
 }
-
+console.log("shortDay (PST):", shortDay);
+console.log("Selected player:", playerCombo[shortDay]);
 let username : string;
 let password : string;
 //set creds depending on day
@@ -36,7 +37,7 @@ if (shortDay == "Tue") {
   password = process.env.PASSWORD as string;
 }
 
-
+process.exit(0)
 test('bot', async ({ page }) => {
   test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
 

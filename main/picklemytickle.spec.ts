@@ -14,10 +14,10 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 // Player schedule
 const playerCombo = {
   Mon: 'Khoi Do',
-  Tue: 'Khoi Do',
+  Tue: 'Tiffany La',
   Wed: 'Khoi Do',
-  Thu: 'Chanel Jung',
-  Fri: 'Chanel Jung',
+  Thu: 'Tiffany La',
+  Fri: 'Khoi Do',
   Sat: 'Chanel Jung',
   Sun: 'Chanel Jung'
 };
@@ -25,12 +25,15 @@ const playerCombo = {
 let username : string;
 let password : string;
 //set creds depending on day
-if (shortDay == "Tue") {
+if (shortDay == "Mon" || shortDay == "Wed") {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
+} else if (shortDay == "Tue" || shortDay == "Thu") {
+  username = process.env.MY_USERNAME2 as string;
+  password = process.env.PASSWORD2 as string;
 } else {
-  username = process.env.MY_USERNAME as string;
-  password = process.env.PASSWORD as string;
+  username = process.env.MY_USERNAME2 as string;
+  password = process.env.PASSWORD2 as string;
 }
 
 test('bot', async ({ page }) => {

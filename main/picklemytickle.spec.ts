@@ -95,6 +95,10 @@ test('bot', async ({ page }) => {
     } catch {}
   }
 
+  await page.evaluate(() => {
+    window.scrollBy(0, window.innerHeight / 2);
+  });
+  
   //select times
   let selected : boolean = false
   for (const time of desiredTimes) {
@@ -129,7 +133,7 @@ test('bot', async ({ page }) => {
       console.log(`Court ${court} not available`)
     }
   }
-  
+
   //Next
   await page.locator(selectors.nextButton).click({timeout: 3000})
 

@@ -18,8 +18,8 @@ const playerCombo = {
   Wed: 'Khoi Do',
   Thu: 'Tiffany La',
   Fri: 'Khoi Do',
-  Sat: 'Chanel Jung',
-  Sun: 'Chanel Jung'
+  Sat: 'Patrick Jung',
+  Sun: 'Patrick Jung'
 };
 
 let username : string;

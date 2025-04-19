@@ -26,6 +26,8 @@ jobs:
         env:
           MY_USERNAME: ${{ secrets.MY_USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
+          PASSWORD2: ${{ secrets.PASSWORD2 }}
 
       - name: Upload videos
         if: always()

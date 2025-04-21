@@ -78,12 +78,12 @@ test('bot', async ({ page }) => {
   await page.locator(functions.getXPath()).click()
   //select pickleball
   await page.locator(selectors.pickleballButton).click()
-  await page.waitForTimeout(3000)
+  await page.waitForTimeout(1000)
 
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();
   while (count > 0) {
-    await page.waitForTimeout(1000)
+    await page.waitForTimeout(200)
     //check again
     count = await page.locator(selectors.messageUntilOpen).count();
     if (count < 1) {
@@ -107,7 +107,7 @@ test('bot', async ({ page }) => {
   for (const time of desiredTimes) {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
-      await locator.waitFor({ timeout: 500 });
+      await locator.waitFor({ timeout: 100 });
       console.log(`${time} booked`);
       
       //select time
@@ -121,7 +121,7 @@ test('bot', async ({ page }) => {
       }
     }
   }
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(100);
 
   let selectedCourts : string[] = []
   //select earliest court
@@ -129,7 +129,7 @@ test('bot', async ({ page }) => {
       //add selected court to other array
       selectedCourts.push(court)
     try {
-      await page.locator(functions.courtPath(court)).click({timeout: 500})
+      await page.locator(functions.courtPath(court)).click({timeout: 100})
       console.log(`Court ${court} selected`)
       break;
     } catch {
@@ -138,7 +138,7 @@ test('bot', async ({ page }) => {
   }
 
   //Next
-  await page.locator(selectors.nextButton).click({timeout: 3000})
+  await page.locator(selectors.nextButton).click()
 
   //select number of users
   await page.locator(selectors.twoPlayers).click()
@@ -160,7 +160,7 @@ test('bot', async ({ page }) => {
 
   //BOOK
   await page.locator(selectors.bookButton).click()
-  await page.waitForTimeout(3000)
+  await page.waitForTimeout(500)
 
   console.log(alertAppeared ? '✅ Alert appeared' : '❌ No alert appeared');
 
@@ -177,7 +177,7 @@ test('bot', async ({ page }) => {
       //add selected court to other array
       selectedCourts.push(court)
       try {
-        await page.locator(functions.courtPath(court)).click({timeout: 500})
+        await page.locator(functions.courtPath(court)).click({timeout: 100})
         console.log(`Court ${court} selected`)
         break;
       } catch {
@@ -188,7 +188,7 @@ test('bot', async ({ page }) => {
     await page.locator(selectors.checkout).click()
     //BOOK
     await page.locator(selectors.bookButton).click()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(500)
     confirmationCount = await page.locator(selectors.confirmationNumber).count()
   }
 

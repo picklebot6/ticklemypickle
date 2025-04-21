@@ -13,9 +13,9 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 
 // Player schedule
 const playerCombo = {
-  Mon: 'Chanel Jung',
-  Tue: 'Tiffany La',
-  Wed: 'Khoi Do',
+  Mon: 'Khoi Do',
+  Tue: 'Patrick Jung',
+  Wed: 'Chanel Jung',
   Thu: 'Patrick Jung',
   Fri: 'Khoi Do',
   Sat: 'Patrick Jung',
@@ -62,6 +62,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
+
 
   //check for popup
   try {
@@ -145,7 +146,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.addUsers).click()
 
   //search users
-  await page.locator(selectors.playerSearchField).fill(playerCombo[shortDay])
+  //await page.locator(selectors.playerSearchField).fill(playerCombo[shortDay])
   await page.locator(functions.playerPath(playerCombo[shortDay])).click()
   await page.locator(selectors.userSelectionNext).click()
 

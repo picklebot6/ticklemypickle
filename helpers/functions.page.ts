@@ -18,7 +18,7 @@ export function desiredTimePath(time: string) : string {
 }
 
 export function playerPath(player : string) : string {
-    return `//span[text()='${player}']/ancestor::div[@class='PlayerList']//button[text()='Add']`
+    return `//span[text()='${player}']/ancestor::div[contains(@class,'spcbtw')]//button[text()='Add']`
 }
 
 export function courtPath(court : string) : string {

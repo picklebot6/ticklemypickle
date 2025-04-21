@@ -13,10 +13,10 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 
 // Player schedule
 const playerCombo = {
-  Mon: 'Khoi Do',
+  Mon: 'Chanel Jung',
   Tue: 'Tiffany La',
   Wed: 'Khoi Do',
-  Thu: 'Tiffany La',
+  Thu: 'Patrick Jung',
   Fri: 'Khoi Do',
   Sat: 'Patrick Jung',
   Sun: 'Patrick Jung'

@@ -15,7 +15,7 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 const playerCombo = {
   Mon: 'Khoi Do',
   Tue: 'Patrick Jung',
-  Wed: 'Chanel Jung',
+  Wed: 'Tiffany La',
   Thu: 'Patrick Jung',
   Fri: 'Khoi Do',
   Sat: 'Patrick Jung',
@@ -25,7 +25,7 @@ const playerCombo = {
 let username : string;
 let password : string;
 //set creds depending on day
-if (shortDay == "Mon" || shortDay == "Wed") {
+if (shortDay == "Mon" || shortDay == "Wedx") {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
 } else if (shortDay == "Tue" || shortDay == "Thu") {
@@ -62,7 +62,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-
 
   //check for popup
   try {

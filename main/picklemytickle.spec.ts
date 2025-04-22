@@ -161,7 +161,7 @@ test('bot', async ({ page }) => {
 
   //BOOK
   await page.locator(selectors.bookButton).click()
-  await page.waitForTimeout(500)
+  await page.waitForTimeout(1500)
 
   console.log(alertAppeared ? '✅ Alert appeared' : '❌ No alert appeared');
 
@@ -169,7 +169,7 @@ test('bot', async ({ page }) => {
   let confirmationCount = await page.locator(selectors.confirmationNumber).count()
   while (confirmationCount < 1 && selectedCourts.length < courtHierarchy.length) { //if booking confirmation is not found
     //go back to court selection
-    await page.locator(selectors.selectDateTime).click()
+    await page.locator(selectors.selectDateTime).click({timeout:5000})
     //select a different court
     for (const court of courtHierarchy) {
       if (selectedCourts.includes(court)) {

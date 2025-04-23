@@ -13,25 +13,24 @@ const shortDay = new Intl.DateTimeFormat('en-US', {
 
 // Player schedule
 const playerCombo = {
-  Mon: 'Khoi Do',
-  Tue: 'Patrick Jung',
-  Wed: 'Tiffany La',
-  Thu: 'Patrick Jung',
-  Fri: 'Khoi Do',
-  Sat: 'Patrick Jung',
-  Sun: 'Patrick Jung'
+  Mon: 'Charlee Liu',
+  Tue: 'Tiffany La',
+  Wed: 'Charlee Liu',
+  Thu: 'Tiffany La',
+  Fri: '',
+  Sat: '',
+  Sun: ''
 };
-
 let username : string;
 let password : string;
 //set creds depending on day
-if (shortDay == "Mon" || shortDay == "Wedx") {
+if (shortDay == "Mon" || shortDay == "Tue") {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
-} else if (shortDay == "Tue" || shortDay == "Thu") {
+} else if (shortDay == "Wed" || shortDay == "Thu") {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
-} else {
+} else {  //default to 2nd creds if needed
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
 }

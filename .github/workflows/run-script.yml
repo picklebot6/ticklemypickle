@@ -2,11 +2,6 @@ name: Automatic Reservations on PlayByPoint
 
 on:
   workflow_dispatch:
-    inputs:
-      path_mode:
-        description: 'pj for Pat, cj for Chanel'
-        required: true
-        default: 'pj'
 
 jobs:
   pat-job:

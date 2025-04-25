@@ -46,8 +46,8 @@ test('bot', async ({ page }) => {
 
   test.setTimeout(10 * 60 * 1000); // 10 minutes
 
-  //initiate array of desired times
-  desiredTimes = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  //set array for testing
+  //desiredTimes = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
@@ -60,7 +60,6 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-  await page.pause()
   
   //check for popup
   try {

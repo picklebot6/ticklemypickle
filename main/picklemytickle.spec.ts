@@ -60,7 +60,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-  //await page.pause()
+  await page.pause()
   
   //check for popup
   try {
@@ -107,7 +107,7 @@ test('bot', async ({ page }) => {
     const locator = page.locator(functions.desiredTimePath(time));
     try {
       await locator.waitFor({ timeout: 100 });
-      console.log(`${time} booked`);
+      console.log(`${time} selected`);
       
       //select time
       await page.locator(functions.desiredTimePath(time)).click()

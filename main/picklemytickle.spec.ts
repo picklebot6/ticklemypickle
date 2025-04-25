@@ -5,51 +5,50 @@ import * as functions from "../helpers/functions.page"
 import { secureHeapUsed } from 'crypto';
 dotenv.config();  //only needed for local dev
 
-// Get current day in PST (short format like "Mon", "Tue", etc.)
-const shortDay = new Intl.DateTimeFormat('en-US', {
-  weekday: 'short',
-  timeZone: 'America/Los_Angeles',
-}).format(new Date());
+// Get Input Variables
+const path = process.env.PATH_MODE ?? 'pj'; //default to pat if path empty
 
-// Player schedule
-const playerCombo = {
-  Mon: 'Charlee Liu',
-  Tue: 'Tiffany La',
-  Wed: 'Charlee Liu',
-  Thu: 'Tiffany La',
-  Fri: '',
-  Sat: '',
-  Sun: ''
-};
+//Set all variables depending on path
 let username : string;
 let password : string;
+let courtHierarchy : string[];
+let desiredTimes : string[];
+let secondary : string;
 //set creds depending on day
-if (shortDay == "Mon" || shortDay == "Tue") {
+if (path == 'pj') {
+  //creds
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
-} else if (shortDay == "Wed" || shortDay == "Thu") {
+  //court hierarachy
+  courtHierarchy = ['2','8','3','7','5']
+  //desired times
+  desiredTimes = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  //secondary player
+  secondary = 'Charlee Liu'
+} else if (path == 'cj') {
+  //creds
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
-} else {  //default to 2nd creds if needed
-  username = process.env.MY_USERNAME2 as string;
-  password = process.env.PASSWORD2 as string;
+  //court hierarachy
+  courtHierarchy = ['4','9','6','1','10']
+  //desired times
+  desiredTimes = ['7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
+  //secondary player
+  secondary = 'Tiffany La'
 }
 
 test('bot', async ({ page }) => {
-  // Debug logs
-  console.log("shortDay (PST):", shortDay);
-  console.log("Selected player:", playerCombo[shortDay]);
+  // Log out env vars
+  console.log(`Path: ${path}`);
+  console.log(`Courts: ${courtHierarchy}`);
+  console.log(`Times: ${desiredTimes}`);
+  console.log(`Secondary Player: ${secondary}`);
 
-  test.setTimeout(15 * 60 * 1000); // 15 minutes = 900000 ms
+  test.setTimeout(10 * 60 * 1000); // 10 minutes
 
   //initiate array of desired times
-  //const desiredTimes : string[] = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
-  //const desiredTimes : string[] = ['5-5:30pm']
+  desiredTimes = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
 
-  const desiredTimes : string[] = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
-
-  //intiate array of best court
-  const courtHierarchy : string[] = ['2','4','8','9','3','6','7','1','5','10']
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');
 
@@ -61,7 +60,8 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-
+  //await page.pause()
+  
   //check for popup
   try {
     await page.locator(selectors.popup).click({timeout: 2500})
@@ -137,15 +137,14 @@ test('bot', async ({ page }) => {
   }
 
   //Next
-  await page.locator(selectors.nextButton).click()
+  await page.locator(selectors.nextButton).click({timeout: 5000})
 
   //select number of users
   await page.locator(selectors.twoPlayers).click()
   await page.locator(selectors.addUsers).click()
 
   //search users
-  //await page.locator(selectors.playerSearchField).fill(playerCombo[shortDay])
-  await page.locator(functions.playerPath(playerCombo[shortDay])).click()
+  await page.locator(functions.playerPath(secondary)).click()
   await page.locator(selectors.userSelectionNext).click()
 
   //listen for alert
@@ -159,9 +158,9 @@ test('bot', async ({ page }) => {
 
   //BOOK
   await page.locator(selectors.bookButton).click()
-  await page.waitForTimeout(1500)
+  await page.waitForTimeout(1000)
 
-  console.log(alertAppeared ? '✅ Alert appeared' : '❌ No alert appeared');
+  console.log(alertAppeared ? '❌ Alert appeared' : '✅ No alert appeared');
 
   //check if booking worked
   let confirmationCount = await page.locator(selectors.confirmationNumber).count()
@@ -187,7 +186,7 @@ test('bot', async ({ page }) => {
     await page.locator(selectors.checkout).click()
     //BOOK
     await page.locator(selectors.bookButton).click()
-    await page.waitForTimeout(500)
+    await page.waitForTimeout(1000)
     confirmationCount = await page.locator(selectors.confirmationNumber).count()
   }
 
@@ -195,5 +194,5 @@ test('bot', async ({ page }) => {
   let confirmationNumber = await page.$eval(selectors.confirmationNumber, el => el.textContent)
   console.log(`Booking confirmed! Here's the confirmation number: ${confirmationNumber?.trim()}`)
   await page.waitForTimeout(5000)
-  // await page.pause()
+  ///await page.pause()
 });

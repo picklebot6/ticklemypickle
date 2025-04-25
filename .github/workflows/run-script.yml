@@ -1,6 +1,11 @@
 name: Automatic Reservations on PlayByPoint
 on:
-  workflow_dispatch:     # Optional: lets you run it manually too
+  workflow_dispatch:     
+    inputs:
+      path_mode:
+        description: 'pj for Pat, cj for Chanel'
+        required: true
+        default: 'pj'
 
 jobs:
   test:
@@ -22,7 +27,9 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: |
+          echo "Running with PATH_MODE=${{ github.event.inputs.path_mode }}"
+          PATH_MODE=${{ github.event.inputs.path_mode }} npx playwright test
         env:
           MY_USERNAME: ${{ secrets.MY_USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}

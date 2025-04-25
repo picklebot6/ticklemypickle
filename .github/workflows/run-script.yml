@@ -1,6 +1,7 @@
 name: Automatic Reservations on PlayByPoint
+
 on:
-  workflow_dispatch:     
+  workflow_dispatch:
     inputs:
       path_mode:
         description: 'pj for Pat, cj for Chanel'
@@ -8,7 +9,8 @@ on:
         default: 'pj'
 
 jobs:
-  test:
+  pat-job:
+    name: Pat Reservation
     runs-on: ubuntu-latest
 
     steps:
@@ -26,26 +28,61 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install
 
-      - name: Run Playwright tests
+      - name: Run Playwright tests for Pat
         run: |
-          echo "Running with PATH_MODE=${{ github.event.inputs.path_mode }}"
-          PATH_MODE=${{ github.event.inputs.path_mode }} npx playwright test
+          echo "Running Playwright tests for Pat with PATH_MODE=pj"
+          PATH_MODE=pj npx playwright test
         env:
           MY_USERNAME: ${{ secrets.MY_USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
           MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
           PASSWORD2: ${{ secrets.PASSWORD2 }}
 
-      - name: Upload videos
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-videos
-          path: playwright-report/data/**/*.webm
+      - name: Zip Pat Playwright Report
+        run: |
+          zip -r pat-playwright-report.zip playwright-report/
 
-      - name: Upload full Playwright report
-        if: always()
+      - name: Upload Zipped Pat Playwright Report
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-html-report
-          path: playwright-report/
+          name: pat-html-report-zip
+          path: pat-playwright-report.zip
+
+  chanel-job:
+    name: Chanel Reservation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install
+
+      - name: Run Playwright tests for Chanel
+        run: |
+          echo "Running Playwright tests for Chanel with PATH_MODE=cj"
+          PATH_MODE=cj npx playwright test
+        env:
+          MY_USERNAME: ${{ secrets.MY_USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
+          PASSWORD2: ${{ secrets.PASSWORD2 }}
+
+      - name: Zip Chanel Playwright Report
+        run: |
+          zip -r chanel-playwright-report.zip playwright-report/
+
+      - name: Upload Zipped Chanel Playwright Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: chanel-html-report-zip
+          path: chanel-playwright-report.zip

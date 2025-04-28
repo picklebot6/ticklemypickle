@@ -20,7 +20,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
   //court hierarachy
-  courtHierarchy = ['2','8','3','7','5']
+  courtHierarchy = ['2','8','3','7','5','4','9','6','1','10']
   //desired times
   desiredTimes = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
   //secondary player
@@ -30,7 +30,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
-  courtHierarchy = ['4','9','6','1','10']
+  courtHierarchy = ['4','9','6','1','10','2','8','3','7','5']
   //desired times
   desiredTimes = ['7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
   //secondary player
@@ -80,6 +80,7 @@ test('bot', async ({ page }) => {
 
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();
+  let loopCounter = 0;
   while (count > 0) {
     await page.waitForTimeout(200)
     //check again
@@ -92,8 +93,11 @@ test('bot', async ({ page }) => {
       const hr = await page.$eval(selectors.hr, el => el.textContent)
       const min = await page.$eval(selectors.min, el => el.textContent)
       const sec = await page.$eval(selectors.sec, el => el.textContent)
-      console.log(`time left remaining: ${hr}:${min}:${sec}`)
+      if (loopCounter%10 == 0) {
+        console.log(`time left remaining: ${hr}:${min}:${sec}`)
+      }
     } catch {}
+    loopCounter++
   }
 
   await page.evaluate(() => {

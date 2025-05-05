@@ -34,14 +34,22 @@ jobs:
           PASSWORD2: ${{ secrets.PASSWORD2 }}
 
       - name: Zip Pat Playwright Report
-        run: |
-          zip -r pat-playwright-report.zip playwright-report/
+        if: always()
+        run: zip -r pat-playwright-report.zip playwright-report/
 
       - name: Upload Zipped Pat Playwright Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pat-html-report-zip
           path: pat-playwright-report.zip
+
+      - name: Upload Pat Test Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pat-videos
+          path: test-results/**/video.webm
 
   chanel-job:
     name: Chanel Reservation
@@ -73,11 +81,19 @@ jobs:
           PASSWORD2: ${{ secrets.PASSWORD2 }}
 
       - name: Zip Chanel Playwright Report
-        run: |
-          zip -r chanel-playwright-report.zip playwright-report/
+        if: always()
+        run: zip -r chanel-playwright-report.zip playwright-report/
 
       - name: Upload Zipped Chanel Playwright Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chanel-html-report-zip
           path: chanel-playwright-report.zip
+
+      - name: Upload Chanel Test Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chanel-videos
+          path: test-results/**/video.webm

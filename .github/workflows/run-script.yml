@@ -48,7 +48,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pat-videos
+          name: pat-account-recording
           path: test-results/**/video.webm
 
   chanel-job:
@@ -95,5 +95,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: chanel-videos
+          name: chanel-account-recording
           path: test-results/**/video.webm

@@ -41,14 +41,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pat-html-report-zip
-          path: pat-playwright-report.zip
+          name: pj-html-report-zip
+          path: pj-playwright-report.zip
 
       - name: Upload Pat Test Videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pat-account-recording
+          name: pj-screen-recording
           path: test-results/**/video.webm
 
   chanel-job:
@@ -88,12 +88,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: chanel-html-report-zip
-          path: chanel-playwright-report.zip
+          name: cj-html-report-zip
+          path: cj-playwright-report.zip
 
       - name: Upload Chanel Test Videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: chanel-account-recording
+          name: cj-screen-recording
           path: test-results/**/video.webm

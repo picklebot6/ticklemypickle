@@ -35,7 +35,7 @@ jobs:
 
       - name: Zip Pat Playwright Report
         if: always()
-        run: zip -r pat-playwright-report.zip playwright-report/
+        run: zip -r pj-playwright-report.zip playwright-report/
 
       - name: Upload Zipped Pat Playwright Report
         if: always()
@@ -82,7 +82,7 @@ jobs:
 
       - name: Zip Chanel Playwright Report
         if: always()
-        run: zip -r chanel-playwright-report.zip playwright-report/
+        run: zip -r cj-playwright-report.zip playwright-report/
 
       - name: Upload Zipped Chanel Playwright Report
         if: always()

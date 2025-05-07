@@ -169,7 +169,11 @@ test('bot', async ({ page }) => {
   let confirmationCount = await page.locator(selectors.confirmationNumber).count()
   while (confirmationCount < 1 && selectedCourts.length < courtHierarchy.length) { //if booking confirmation is not found
     //go back to court selection
-    await page.locator(selectors.selectDateTime).click({timeout:5000})
+    try{
+      await page.locator(selectors.selectDateTime).click({timeout:5000})
+    } catch {
+      break;  //if it errors out here, that means reservation was successful, the page just didn't load in time
+    }
     //select a different court
     for (const court of courtHierarchy) {
       if (selectedCourts.includes(court)) {

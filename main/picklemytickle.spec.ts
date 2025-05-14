@@ -30,11 +30,21 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
-  courtHierarchy = ['4','9','6','1','10','2','8','3','7','5']
+  courtHierarchy = ['8','3','1','2','7','5','4','9','6','10']
   //desired times
   desiredTimes = ['7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
   //secondary player
   secondary = 'Tiffany La'
+} else if (path == 'el') {
+  //creds
+  username = process.env.MY_USERNAME3 as string;
+  password = process.env.PASSWORD3 as string;
+  //court hierarachy
+  courtHierarchy = ['4','9','6','1','10','2','8','3','7','5']
+  //desired times
+  desiredTimes = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm']
+  //secondary player
+  secondary = 'Jimmy Le'
 }
 
 test('bot', async ({ page }) => {
@@ -47,7 +57,7 @@ test('bot', async ({ page }) => {
   test.setTimeout(10 * 60 * 1000); // 10 minutes
 
   //set array for testing
-  //desiredTimes = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
+  // desiredTimes = ['2-2:30pm','2:30-3pm','3-3:30pm','3:30-4pm']
 
   //navigate to website
   await page.goto('https://app.playbypoint.com/users/sign_in');

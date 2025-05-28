@@ -24,7 +24,7 @@ if (path == 'pj') {
   //desired times
   desiredTimes = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
   //secondary player
-  secondary = 'Charlee Liu'
+  secondary = 'Khoi Do'
 } else if (path == 'cj') {
   //creds
   username = process.env.MY_USERNAME2 as string;

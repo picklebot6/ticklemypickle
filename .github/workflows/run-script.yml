@@ -30,10 +30,6 @@ jobs:
         env:
           MY_USERNAME: ${{ secrets.MY_USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
-          PASSWORD2: ${{ secrets.PASSWORD2 }}
-          MY_USERNAME3: ${{ secrets.MY_USERNAME3 }}
-          PASSWORD3: ${{ secrets.PASSWORD3 }}
 
       - name: Zip Pat Playwright Report
         if: always()
@@ -77,12 +73,8 @@ jobs:
           echo "Running Playwright tests for Chanel with PATH_MODE=cj"
           PATH_MODE=cj npx playwright test
         env:
-          MY_USERNAME: ${{ secrets.MY_USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
           MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
           PASSWORD2: ${{ secrets.PASSWORD2 }}
-          MY_USERNAME3: ${{ secrets.MY_USERNAME3 }}
-          PASSWORD3: ${{ secrets.PASSWORD3 }}
 
       - name: Zip Chanel Playwright Report
         if: always()
@@ -101,6 +93,7 @@ jobs:
         with:
           name: cj-screen-recording
           path: test-results/**/video.webm
+
   elbert-job:
     name: Elbert Reservation
     runs-on: ubuntu-latest
@@ -125,10 +118,6 @@ jobs:
           echo "Running Playwright tests for Elbert with PATH_MODE=el"
           PATH_MODE=el npx playwright test
         env:
-          MY_USERNAME: ${{ secrets.MY_USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          MY_USERNAME2: ${{ secrets.MY_USERNAME2 }}
-          PASSWORD2: ${{ secrets.PASSWORD2 }}
           MY_USERNAME3: ${{ secrets.MY_USERNAME3 }}
           PASSWORD3: ${{ secrets.PASSWORD3 }}
 
@@ -149,5 +138,47 @@ jobs:
         with:
           name: el-screen-recording
           path: test-results/**/video.webm
+  justin-job:
+    name: Justin Reservation
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install
+
+      - name: Run Playwright tests for Justin
+        run: |
+          echo "Running Playwright tests for Justin with PATH_MODE=jc ONLY on Wed"
+          PATH_MODE=el npx playwright test
+        env:
+          MY_USERNAME4: ${{ secrets.MY_USERNAME4 }}
+          PASSWORD4: ${{ secrets.PASSWORD4 }}
+
+      - name: Zip Justin Playwright Report
+        if: always()
+        run: zip -r jc-playwright-report.zip playwright-report/
+
+      - name: Upload Justin Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jc-html-report
+          path: jc-playwright-report.zip
+
+      - name: Upload Justin Test Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jc-screen-recording
+          path: test-results/**/video.webm

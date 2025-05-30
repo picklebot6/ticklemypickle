@@ -13,6 +13,7 @@ import { on } from 'events';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 600000,
   testDir: './main',
   /* Run tests in files in parallel */
   fullyParallel: true,

@@ -160,7 +160,7 @@ jobs:
       - name: Run Playwright tests for Justin
         run: |
           echo "Running Playwright tests for Justin with PATH_MODE=jc ONLY on Wed"
-          PATH_MODE=el npx playwright test
+          PATH_MODE=jc npx playwright test
         env:
           MY_USERNAME4: ${{ secrets.MY_USERNAME4 }}
           PASSWORD4: ${{ secrets.PASSWORD4 }}

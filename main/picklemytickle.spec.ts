@@ -21,7 +21,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
   //court hierarachy
-  courtHierarchy = ['2','8','3','7','5','4','9','6','1','10']
+  courtHierarchy = ['6','2','8','3','7','5','4','9','1','10']
   //desired times
   desiredTimes = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
   //secondary player
@@ -31,7 +31,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
-  courtHierarchy = ['8','3','1','2','7','5','4','9','6','10']
+  courtHierarchy = ['3','8','7','1','2','5','4','9','6','10']
   //desired times
   desiredTimes = ['7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
   //secondary player
@@ -41,7 +41,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME3 as string;
   password = process.env.PASSWORD3 as string;
   //court hierarachy
-  courtHierarchy = ['4','9','6','1','10','2','8','3','7','5']
+  courtHierarchy = ['9','4','6','10','1','2','8','3','7','5']
   //desired times
   desiredTimes = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm']
   //secondary player
@@ -167,7 +167,7 @@ test('bot', async ({ page }) => {
   }
 
   //depending on day and path
-  if (path == 'jc' && pstDay != 'Mon') {
+  if (path == 'jc' && pstDay != 'Tue') {
     console.log("Skipping JC because it's not Wednesday.")
     //don't want the bot doing anything
   } else {

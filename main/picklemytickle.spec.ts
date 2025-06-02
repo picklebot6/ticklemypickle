@@ -127,6 +127,7 @@ test('bot', async ({ page }) => {
   
   //on wednesday, wait 1 sec except for jc
   if (pstDay == 'Wed' && path != 'jc') {
+    console.log("Waitng 1 sec for JC to book first.")
     await page.waitForTimeout(1000)
   }
 
@@ -166,7 +167,7 @@ test('bot', async ({ page }) => {
   }
 
   //depending on day and path
-  if (path == 'jc' && pstDay != 'Wed') {
+  if (path == 'jc' && pstDay != 'Mon') {
     console.log("Skipping JC because it's not Wednesday.")
     //don't want the bot doing anything
   } else {

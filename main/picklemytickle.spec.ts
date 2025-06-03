@@ -31,7 +31,11 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
-  courtHierarchy = ['3','8','7','1','2','5','4','9','6','10']
+  if (pstDay == 'Tue') {
+    courtHierarchy = ['8','7','3','1','2','5','4','9','6','10']
+  } else {
+    courtHierarchy = ['3','8','7','1','2','5','4','9','6','10']
+  }
   //desired times
   desiredTimes = ['7-7:30pm','7:30-8pm','8-8:30pm','8:30-9pm']
   //secondary player

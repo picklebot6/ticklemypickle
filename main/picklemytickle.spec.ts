@@ -31,7 +31,7 @@ if (path == 'pj') {
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
-  if (pstDay == 'Tue') {
+  if (pstDay == 'Wed') {
     courtHierarchy = ['8','7','3','1','2','5','4','9','6','10']
   } else {
     courtHierarchy = ['3','8','7','1','2','5','4','9','6','10']
@@ -84,7 +84,7 @@ test('bot', async ({ page }) => {
   await page.locator(selectors.passwordField).fill(password)
   await page.locator(selectors.loginButton).click()
   await expect(page).toHaveTitle(/Home/);
-  
+
   //check for popup
   try {
     await page.locator(selectors.popup).click({timeout: 2500})
@@ -171,7 +171,7 @@ test('bot', async ({ page }) => {
   }
 
   //depending on day and path
-  if (path == 'jc' && pstDay != 'Tue') {
+  if (path == 'jc' && pstDay != 'Wed') {
     console.log("Skipping JC because it's not Wednesday.")
     //don't want the bot doing anything
   } else {
@@ -202,35 +202,39 @@ test('bot', async ({ page }) => {
     console.log(alertAppeared ? '❌ Alert appeared' : '✅ No alert appeared');
 
     //check if booking worked
-    let confirmationCount = await page.locator(selectors.confirmationNumber).count()
-    while (confirmationCount < 1 && selectedCourts.length < courtHierarchy.length) { //if booking confirmation is not found
-      //go back to court selection
-      try{
-        await page.locator(selectors.selectDateTime).click({timeout:5000})
-      } catch {
-        break;  //if it errors out here, that means reservation was successful, the page just didn't load in time
-      }
-      //select a different court
-      for (const court of courtHierarchy) {
-        if (selectedCourts.includes(court)) {
-          continue
-        }
-        //add selected court to other array
-        selectedCourts.push(court)
-        try {
-          await page.locator(functions.courtPath(court)).click({timeout: 100})
-          console.log(`Court ${court} selected`)
-          break;
+    try {
+      let confirmationCount = await page.locator(selectors.confirmationNumber).count()
+      while (confirmationCount < 1 && selectedCourts.length < courtHierarchy.length) { //if booking confirmation is not found
+        //go back to court selection
+        try{
+          await page.locator(selectors.selectDateTime).click({timeout:5000})
         } catch {
-          console.log(`Court ${court} not available`)
+          break;  //if it errors out here, that means reservation was successful, the page just didn't load in time
         }
+        //select a different court
+        for (const court of courtHierarchy) {
+          if (selectedCourts.includes(court)) {
+            continue
+          }
+          //add selected court to other array
+          selectedCourts.push(court)
+          try {
+            await page.locator(functions.courtPath(court)).click({timeout: 100})
+            console.log(`Court ${court} selected`)
+            break;
+          } catch {
+            console.log(`Court ${court} not available`)
+          }
+        }
+        //go back to book
+        await page.locator(selectors.checkout).click({timeout:5000})
+        //BOOK
+        await page.locator(selectors.bookButton).click({timeout:5000})
+        await page.waitForTimeout(1000)
+        confirmationCount = await page.locator(selectors.confirmationNumber).count()
       }
-      //go back to book
-      await page.locator(selectors.checkout).click()
-      //BOOK
-      await page.locator(selectors.bookButton).click()
-      await page.waitForTimeout(1000)
-      confirmationCount = await page.locator(selectors.confirmationNumber).count()
+    } catch {
+      console.log("Booking may have worked, checking for true error")
     }
 
     //extract confirmation number

@@ -23,7 +23,7 @@ if (path == 'pj') {
   //court hierarachy
   courtHierarchy = ['6','2','8','3','7','5','4','9','1','10']
   //desired times
-  desiredTimes = ['6:30-7pm','7-7:30pm','7:30-8pm','8-8:30pm']
+  desiredTimes = ['7:30-8pm','8-8:30pm','8:30-9pm','9-9:30pm',]
   //secondary player
   secondary = 'Woo Je Lim'
 } else if (path == 'cj') {

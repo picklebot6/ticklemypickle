@@ -16,23 +16,23 @@ let courtHierarchy : string[];
 let desiredTimes : string[];
 let secondary : string;
 //set creds depending on day
-if (path == 'cj') {
+if (path == 'pj') {
   //creds
   username = process.env.MY_USERNAME as string;
   password = process.env.PASSWORD as string;
   //court hierarachy
-  courtHierarchy = ['6','2','8','3','7','5','4','9','1','10']
+  courtHierarchy = ['8','1','3','7','2','5','4','9','6','10']
   //desired times
   desiredTimes = ['7:30-8pm','8-8:30pm','8:30-9pm','9-9:30pm',]
   //secondary player
   secondary = 'Woo Je Lim'
-} else if (path == 'pj') {
+} else if (path == 'cj') {
   //creds
   username = process.env.MY_USERNAME2 as string;
   password = process.env.PASSWORD2 as string;
   //court hierarachy
   if (pstDay == 'Wed') {
-    courtHierarchy = ['8','1','3','7','2','5','4','9','6','10']
+    courtHierarchy = ['6','2','8','3','7','5','4','9','1','10']
   } else {
     courtHierarchy = ['3','8','1','2','5','4','9','6','7','10']
   }

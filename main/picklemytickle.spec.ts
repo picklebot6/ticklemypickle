@@ -47,7 +47,11 @@ if (path == 'pj') {
   //court hierarachy
   courtHierarchy = ['4','3','9','6','1','2','8','10','7','5']
   //desired times
-  desiredTimes = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm']
+  if (pstDay == 'Sat' || pstDay == 'Sun') {
+    desiredTimes = ['8-8:30pm','8:30-9pm','9-9:30pm','9:30-10pm']
+  } else {
+    desiredTimes = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm']
+  }
   //secondary player
   secondary = 'Jimmy Le'
 } else if (path == 'jc') {

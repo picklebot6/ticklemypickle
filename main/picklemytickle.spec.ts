@@ -105,7 +105,7 @@ test('bot', async ({ page }) => {
   await page.locator(functions.getXPath()).click()
   //select pickleball
   await page.locator(selectors.pickleballButton).click()
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(100)
 
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();

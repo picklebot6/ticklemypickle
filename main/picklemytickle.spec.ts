@@ -105,11 +105,13 @@ test('bot', async ({ page }) => {
   await page.locator(functions.getXPath()).click()
   //select pickleball
   await page.locator(selectors.pickleballButton).click()
-  await page.waitForTimeout(100)
+  await page.waitForTimeout(5000)
 
   //wait for countdown
   let count = await page.locator(selectors.messageUntilOpen).count();
   let loopCounter = 0;
+  console.log(`instance of timer found: ${count}`)
+  await page.pause()
   while (count > 0) {
     await page.waitForTimeout(200)
     //check again
@@ -135,7 +137,7 @@ test('bot', async ({ page }) => {
   
   //on wednesday, wait 1 sec except for jc
   if (pstDay == 'Wed' && path != 'jc') {
-    console.log("Waitng 1 sec for JC to book first.")
+    console.log("Waiting 1 sec for JC to book first.")
     await page.waitForTimeout(1000)
   }
 

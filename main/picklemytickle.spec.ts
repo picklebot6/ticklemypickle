@@ -111,7 +111,7 @@ test('bot', async ({ page }) => {
   let count = await page.locator(selectors.messageUntilOpen).count();
   let loopCounter = 0;
   console.log(`instance of timer found: ${count}`)
-  await page.pause()
+
   while (count > 0) {
     await page.waitForTimeout(200)
     //check again
@@ -185,12 +185,12 @@ test('bot', async ({ page }) => {
     await page.locator(selectors.nextButton).click({timeout: 5000})
 
     //select number of users
-    await page.locator(selectors.twoPlayers).click()
-    await page.locator(selectors.addUsers).click()
+    await page.locator(selectors.twoPlayers).click({timeout:1000})
+    await page.locator(selectors.addUsers).click({timeout:1000})
 
     //search users
-    await page.locator(functions.playerPath(secondary)).click()
-    await page.locator(selectors.userSelectionNext).click()
+    await page.locator(functions.playerPath(secondary)).click({timeout:1000})
+    await page.locator(selectors.userSelectionNext).click({timeout:1000})
 
     //listen for alert
     let alertAppeared = false;
@@ -200,10 +200,9 @@ test('bot', async ({ page }) => {
       console.log('Alert:', dialog.message());
       await dialog.accept();
     });
-    await page.pause();
 
     //BOOK
-    await page.locator(selectors.bookButton).click()
+    await page.locator(selectors.bookButton).click({timeout:1000})
     await page.waitForTimeout(1000)
 
     console.log(alertAppeared ? '❌ Alert appeared' : '✅ No alert appeared');

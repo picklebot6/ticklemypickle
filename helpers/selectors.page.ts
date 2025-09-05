@@ -41,3 +41,5 @@ export const confirmationNumber = "//div[text()='Confirmation Number']/following
 export const selectDateTime = "//h2[text()='Select date and time']"
 
 export const checkout = "//h2[text()='Checkout']"
+
+export const courtInfo ="//div[contains(text(),'Pickleball') and contains(text(),'Court')]"

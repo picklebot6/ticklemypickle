@@ -50,8 +50,8 @@ if (path == 'pj') {
     desiredTimes = ['8-8:30pm','8:30-9pm','9-9:30pm','9:30-10pm']
     courtHierarchy = ['3','5','1','4','9','6','2','8','10','7']
   } else {
-    desiredTimes = ['6-6:30pm','6:30-7pm','7-7:30pm','7:30-8pm']
-    courtHierarchy = ['1','4','3','9','6','2','8','10','7','5']
+    desiredTimes = ['5:30-6pm','6-6:30pm','6:30-7pm','7-7:30pm']
+    courtHierarchy = ['9','7','6','1','4','3','2','8','10','5']
   }
   //secondary player
   secondary = 'Jimmy Le'

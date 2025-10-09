@@ -82,7 +82,7 @@ test('bot', async ({ page }) => {
   await page.goto('https://app.playbypoint.com/users/sign_in');
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Login/);
+  await expect(page).toHaveTitle(/Sign in/);
 
   //enter creds
   await page.locator(selectors.usernameField).fill(username)
